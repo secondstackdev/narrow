@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "_comment": "Auto-format on every file write. Defaults to Prettier for JS/TS projects. Replace the command for other stacks: Python: 'black \"$FILE\"', Go: 'gofmt -w \"$FILE\"', Rust: 'rustfmt \"$FILE\"'. Always exit 0 so a missing formatter doesn't block the tool call.",
+            "command": "FILE=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.file_path // empty' 2>/dev/null); [ -n \"$FILE\" ] && [ -f \"$FILE\" ] && command -v npx >/dev/null 2>&1 && npx prettier --write \"$FILE\" 2>/dev/null; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "_comment": "Run verify.sh and doc-drift check after every turn. Always exits 0 (advisory). See .claude/hooks/stop.sh.",
+            "command": ".claude/hooks/stop.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

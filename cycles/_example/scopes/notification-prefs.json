@@ -1,0 +1,80 @@
+{
+  "scope_id": "notification-prefs",
+  "title": "Notification Preferences — Backend Schema & API",
+  "description": "Extend the user settings API to store and return per-type notification preferences. Add the notifications object to the user settings schema and validate incoming values.",
+  "hill_position": 0.6,
+  "status": "in_progress",
+  "scope_type": "backend",
+  "has_hero_screens": false,
+  "hero_screens": [],
+  "mockup_status": "not_started",
+  "unknowns": [
+    {
+      "id": "u1",
+      "description": "Will adding a 'notifications' column to user_settings require a migration on the existing table or a new table?",
+      "resolved": true,
+      "resolution": "New JSONB column on user_settings. Migration is non-destructive — existing rows default to null and the API returns sensible defaults."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "description": "Write migration: add notifications JSONB column to user_settings",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t2",
+      "description": "Update PATCH /api/user/settings to accept and validate notifications object",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t3",
+      "description": "Return notifications in GET /api/user/settings with defaults when null",
+      "status": "in_progress",
+      "discovered": false
+    },
+    {
+      "id": "t4",
+      "description": "Write integration tests for the updated endpoint",
+      "status": "not_started",
+      "discovered": false
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "decision": "Store preferences as JSONB on user_settings rather than a separate notifications_preferences table",
+      "options_considered": [
+        "Separate table with one row per preference type",
+        "JSONB column on user_settings"
+      ],
+      "rationale": "The preference set is small and read as a unit. JSONB is simpler and avoids a join on every settings fetch. If preferences grow complex, a separate table is easy to migrate to.",
+      "needs_spike": false
+    }
+  ],
+  "test_scenarios": [
+    {
+      "id": "ts1",
+      "description": "GET /api/user/settings returns notifications object with all three defaults for a user with no saved preferences",
+      "type": "happy_path",
+      "status": "not_tested"
+    },
+    {
+      "id": "ts2",
+      "description": "PATCH with valid notifications object saves correctly and is returned on next GET",
+      "type": "happy_path",
+      "status": "not_tested"
+    },
+    {
+      "id": "ts3",
+      "description": "PATCH with unknown notification type returns 422",
+      "type": "error",
+      "status": "not_tested"
+    }
+  ],
+  "no_gos": [
+    "Email sending logic — this scope is persistence only",
+    "Digest scheduling changes"
+  ]
+}

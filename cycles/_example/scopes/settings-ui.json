@@ -1,0 +1,101 @@
+{
+  "scope_id": "settings-ui",
+  "title": "Settings Screen & Notification Preferences UI",
+  "description": "A settings hub screen and a notification preferences screen with live toggles. Users can turn digest emails, mentions, and reply notifications on or off. Changes save immediately via the existing user settings API.",
+  "hill_position": 1.0,
+  "status": "done",
+  "scope_type": "full-stack",
+  "has_hero_screens": true,
+  "hero_screens": ["Notification Preferences"],
+  "mockup_status": "approved",
+  "unknowns": [
+    {
+      "id": "u1",
+      "description": "Does the existing PATCH /api/user/settings endpoint support granular notification fields?",
+      "resolved": true,
+      "resolution": "Confirmed: the endpoint accepts arbitrary keys under a 'notifications' object. No schema change needed on the frontend."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "description": "Settings hub screen (display name, email read-only, Notifications row)",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t2",
+      "description": "Notification Preferences screen with toggles",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t3",
+      "description": "Optimistic save with revert-on-failure and error toast",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t4",
+      "description": "Wire toggle state to PATCH /api/user/settings",
+      "status": "done",
+      "discovered": false
+    },
+    {
+      "id": "t5",
+      "description": "Handle initial load state (fetch current preferences on mount)",
+      "status": "done",
+      "discovered": true
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "decision": "Optimistic UI update on toggle — revert on failure",
+      "options_considered": [
+        "Wait for API response before updating UI",
+        "Optimistic update with revert"
+      ],
+      "rationale": "Toggles feel instant. The failure case (revert + toast) is clear. API is fast and reliable.",
+      "needs_spike": false
+    }
+  ],
+  "test_scenarios": [
+    {
+      "id": "ts1",
+      "description": "User opens Settings, taps Notifications, sees all three toggle types",
+      "type": "happy_path",
+      "status": "tested"
+    },
+    {
+      "id": "ts2",
+      "description": "User toggles Digest off — toggle updates immediately, API called, preference persists after restart",
+      "type": "happy_path",
+      "status": "tested"
+    },
+    {
+      "id": "ts3",
+      "description": "API call fails — toggle reverts to previous state, error toast appears",
+      "type": "error",
+      "status": "tested"
+    },
+    {
+      "id": "ts4",
+      "description": "User opens Notification Preferences before API load completes — loading state shown, no toggles visible yet",
+      "type": "edge_case",
+      "status": "tested"
+    }
+  ],
+  "no_gos": [
+    "Password change",
+    "Connected accounts",
+    "Push notification OS permission prompts",
+    "Granular frequency controls"
+  ],
+  "cost_estimate": {
+    "usd": 3.80,
+    "sessions": 1,
+    "method": "session-attributed",
+    "captured": "2025-04-10",
+    "note": "Approximate. Assumes ~one scope per /work session; includes subagent usage."
+  }
+}

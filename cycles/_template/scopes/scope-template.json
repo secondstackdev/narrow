@@ -1,0 +1,47 @@
+{
+  "scope_id": "scope-name",
+  "title": "Human-readable scope title",
+  "description": "What this scope delivers — one paragraph.",
+  "hill_position": 0.0,
+  "status": "not_started",
+  "scope_type": "full-stack",
+  "has_hero_screens": false,
+  "hero_screens": [],
+  "mockup_status": "not_started",
+  "unknowns": [
+    {
+      "id": "u1",
+      "description": "What we don't know yet",
+      "resolved": false,
+      "resolution": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "description": "What needs to be done",
+      "status": "not_started",
+      "discovered": false
+    }
+  ],
+  "architecture_decisions": [
+    {
+      "decision": "What was decided",
+      "options_considered": ["option A", "option B"],
+      "rationale": "Why this option was chosen",
+      "needs_spike": false
+    }
+  ],
+  "test_scenarios": [
+    {
+      "id": "ts1",
+      "description": "User does X, sees Y",
+      "type": "happy_path",
+      "status": "not_tested"
+    }
+  ],
+  "no_gos": [
+    "What this scope explicitly does NOT include"
+  ],
+  "open_questions": []
+}
