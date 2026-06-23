@@ -4,7 +4,7 @@ This file defines the system-level architectural principles for this project.
 It is the source of truth for structural decisions that span multiple scopes and cycles.
 Updated during retros (with human approval) or when a shaping session reveals a new principle.
 
-> **Product:** Guess Game (working title) — a server-side "Answer-Key Engine" guessing
+> **Product:** Narrow (working title) — a server-side "Answer-Key Engine" guessing
 > game. Launch theme: Animals (500 entities). See `product.md` for the vision.
 > Foundation set during `/shape --architecture` bootstrap (architect proposal +
 > red-team pass + founder decisions).

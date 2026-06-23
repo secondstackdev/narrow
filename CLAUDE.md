@@ -2,7 +2,7 @@
 
 ## Project
 
-- **Name:** Guess Game (working title) — AI-powered large-pool deduction game
+- **Name:** Narrow (working title) — AI-powered large-pool deduction game
 - **Stack:** Flutter thin client / server-side Answer-Key Engine + shared cache; external
   LLM APIs (runtime mapper + build-time oracle + synthetic players). Server language, host,
   and runtime model are DEFERRED to the scout (see `architecture.md` → Deferred decisions).
